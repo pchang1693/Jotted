@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#b71c43</color>
+    <color name="colorPrimaryDark">#840424</color>
+    <color name="colorAccent">#851b8b</color>
+    <color name="colorBackground">#f5f2ed</color>
+    <color name="colorNavBar">#ffffff</color>
+
+    <color name="colorHomeMenuText">#ffffff</color>
+    <color name="colorHomeResumeButton">#ce7b7b</color>
+    <color name="colorEntry">#ca9a63</color>
+    <color name="colorDream">#6ca6c1</color>
+    <color name="colorSprout">#74a973</color>
+</resources>

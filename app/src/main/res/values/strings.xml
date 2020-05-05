@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Jotted</string>
+    <string name="entry">Entry</string>
+    <string name="dream">Dream</string>
+    <string name="sprout">Sprout</string>
+    <string name="title_nav_calendar">Calendar</string>
+    <string name="title_nav_home">Home</string>
+    <string name="title_nav_journal">Journal</string>
+    <string name="text_default_greeting">Hey there!</string>
+    <string name="text_default_welcome">Welcome back.</string>
+    <string name="home_button_resume">See where you left off</string>
+    <string name="home_button_entry">Write an entry</string>
+    <string name="home_button_dream">Record a dream</string>
+    <string name="home_button_sprout">Plant a sprout</string>
+
+    <string name="placeholder_note_preview">Today, I took a walk around the neighbourhood.</string>
+    <string name="card_img_description">Note type</string>
+</resources>
