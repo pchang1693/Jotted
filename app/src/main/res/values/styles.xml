@@ -43,13 +43,8 @@
     </style>
 
     <style name="AppTheme.DialogFloat">
-        <item name="android:windowEnterAnimation">@anim/float_left</item>
-        <item name="android:windowExitAnimation">@anim/float_right</item>
-    </style>
-
-    <style name="AppTheme.NoAnimationTransition">
-        <item name="android:windowEnterAnimation">@anim/no_anim_in</item>
-        <item name="android:windowExitAnimation">@anim/no_anim_out</item>
+        <item name="android:windowEnterAnimation">@anim/float_in_left</item>
+        <item name="android:windowExitAnimation">@anim/float_out_right</item>
     </style>
 
 

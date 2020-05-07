@@ -18,6 +18,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Fragment calendarFragment;
+    private Fragment homeFragment;
+    private Fragment journalFragment;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -27,18 +31,19 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.navigation_calendar:
-                    selectedFragment = new CalendarFragment();
+                    selectedFragment = calendarFragment; // new CalendarFragment();
                     break;
                 case R.id.navigation_home:
-                    selectedFragment = new HomeFragment();
+                    selectedFragment = homeFragment; // new HomeFragment();
                     break;
                 case R.id.navigation_journal:
-                    selectedFragment = new JournalFragment();
+                    selectedFragment = journalFragment; // new JournalFragment();
                     break;
             }
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.setCustomAnimations(R.anim.cross_fade_in, R.anim.fade_out);
+            //ft.setCustomAnimations(R.anim.cross_fade_in, R.anim.fade_out);
+            ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
             ft.replace(R.id.mainFragmentHolder, selectedFragment, "curr").commit();
             return true;
         }
@@ -50,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        calendarFragment = new CalendarFragment();
+        homeFragment = new HomeFragment();
+        journalFragment = new JournalFragment();
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -65,11 +74,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void switchToJournalFragment() {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.anim.delayed_fade_in, R.anim.fade_out);
+        ft.replace(R.id.mainFragmentHolder, journalFragment, "curr").commit();
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setSelectedItemId(R.id.navigation_journal);
-
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.mainFragmentHolder, new JournalFragment(), "curr").commit();
     }
 
     public List<Note> getNotes() {
