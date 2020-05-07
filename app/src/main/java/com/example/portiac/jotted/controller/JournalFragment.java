@@ -98,8 +98,16 @@ public class JournalFragment extends Fragment {
                 public void onClick(View v) {
                     Toast.makeText(getContext(), JournalDate.formatDateToJSONString(tempNote.getDate()), Toast.LENGTH_SHORT).show();
                     //Toast.makeText(getContext(), "Card clicked", Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(getContext(), "Card deleted", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Note deleted", Toast.LENGTH_SHORT).show();
                     //deleteNote(tempNote);
+                }
+            });
+            ((JournalViewHolder) viewHolder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    Toast.makeText(getContext(), "Note deleted", Toast.LENGTH_SHORT).show();
+                    deleteNote(tempNote);
+                    return false;
                 }
             });
         }
