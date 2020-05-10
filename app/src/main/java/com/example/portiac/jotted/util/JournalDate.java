@@ -1,5 +1,7 @@
 package com.example.portiac.jotted.util;
 
+import android.util.Log;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -38,9 +40,14 @@ public class JournalDate {
         return new SimpleDateFormat(DATA_STRING_PATTERN).format(date);
     }
 
-    public static Date DataStringToDate(String ds) throws ParseException {
+    public static Date dataStringToDate(String ds) {
         SimpleDateFormat sdf = new SimpleDateFormat(DATA_STRING_PATTERN);
-        return sdf.parse(ds);
+        try {
+            return sdf.parse(ds);
+        } catch (ParseException e) {
+            Log.e("error", "Error parsing date string: ", e);
+        }
+        return currentDate();
     }
 
 }

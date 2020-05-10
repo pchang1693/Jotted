@@ -7,7 +7,6 @@ import com.example.portiac.jotted.util.JournalDate;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.util.Date;
 
 public class JSONConverter {
@@ -46,13 +45,7 @@ public class JSONConverter {
         String content = jo.getString(JSON_CONTENT);
 
         String str_date = jo.getString(JSON_DATE);
-        Date date;
-        try {
-            date = JournalDate.DataStringToDate(str_date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            throw new JSONException("Parsing date JSON string failed.");
-        }
+        Date date = JournalDate.dataStringToDate(str_date);
 
         NoteType type;
         switch (jo.getString(JSON_TYPE)) {

@@ -5,12 +5,10 @@ import com.example.portiac.jotted.util.JournalDate;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class JournalDateUnitTest {
     private Calendar cal;
@@ -42,19 +40,14 @@ public class JournalDateUnitTest {
     @Test
     public void testDataStringToDate() {
         String str = "2019-03-04 13:21:03";
-        Date ac;
-        try {
-            ac = JournalDate.DataStringToDate(str);
-            cal.setTime(ac);
-            assertEquals(2019, cal.get(Calendar.YEAR));
-            assertEquals(Calendar.MARCH, cal.get(Calendar.MONTH));
-            assertEquals(4, cal.get(Calendar.DAY_OF_MONTH));
-            assertEquals(13, cal.get(Calendar.HOUR_OF_DAY));
-            assertEquals(21, cal.get(Calendar.MINUTE));
-            assertEquals(3, cal.get(Calendar.SECOND));
-        } catch (ParseException e) {
-            fail();
-        }
+        Date ac = JournalDate.dataStringToDate(str);
+        cal.setTime(ac);
+        assertEquals(2019, cal.get(Calendar.YEAR));
+        assertEquals(Calendar.MARCH, cal.get(Calendar.MONTH));
+        assertEquals(4, cal.get(Calendar.DAY_OF_MONTH));
+        assertEquals(13, cal.get(Calendar.HOUR_OF_DAY));
+        assertEquals(21, cal.get(Calendar.MINUTE));
+        assertEquals(3, cal.get(Calendar.SECOND));
     }
 
     @Test
