@@ -8,8 +8,8 @@ import java.util.Locale;
 
 public class JournalDate {
 
-    private static String datePattern = "MMMM d, yyyy";
-    private static String JSONStringPattern = "yyyy-MM-dd HH:mm:ss";
+    private final static String DATE_PATTERN = "MMMM d, yyyy";
+    private final static String DATA_STRING_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     public static Date currentDate() {
         return Calendar.getInstance().getTime();
@@ -31,16 +31,16 @@ public class JournalDate {
     }
 
     public static String formatDateToString(Date date) {
-        return new SimpleDateFormat(datePattern, Locale.CANADA).format(date);
+        return new SimpleDateFormat(DATE_PATTERN, Locale.CANADA).format(date);
     }
 
-    public static String formatDateToJSONString(Date date) {
-        return new SimpleDateFormat(JSONStringPattern).format(date);
+    public static String formatDateToDataString(Date date) {
+        return new SimpleDateFormat(DATA_STRING_PATTERN).format(date);
     }
 
-    public static Date JSONStringToDate(String js) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat(JSONStringPattern);
-        return sdf.parse(js);
+    public static Date DataStringToDate(String ds) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat(DATA_STRING_PATTERN);
+        return sdf.parse(ds);
     }
 
 }

@@ -20,7 +20,7 @@ public class JSONConverter {
     static JSONObject noteToJSON(Note note) throws JSONException {
         JSONObject jo = new JSONObject();
         jo.put(JSON_TITLE, note.getTitle());
-        jo.put(JSON_DATE, JournalDate.formatDateToJSONString(note.getDate()));
+        jo.put(JSON_DATE, JournalDate.formatDateToDataString(note.getDate()));
         jo.put(JSON_CONTENT, note.getContent());
 
         switch (note.getType()) {
@@ -48,7 +48,7 @@ public class JSONConverter {
         String str_date = jo.getString(JSON_DATE);
         Date date;
         try {
-            date = JournalDate.JSONStringToDate(str_date);
+            date = JournalDate.DataStringToDate(str_date);
         } catch (ParseException e) {
             e.printStackTrace();
             throw new JSONException("Parsing date JSON string failed.");

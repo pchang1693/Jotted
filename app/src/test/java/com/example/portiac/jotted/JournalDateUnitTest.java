@@ -9,7 +9,8 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class JournalDateUnitTest {
     private Calendar cal;
@@ -34,16 +35,16 @@ public class JournalDateUnitTest {
     }
 
     @Test
-    public void testFormatDateToJSONString() {
-        assertEquals("2017-09-05 18:32:15", JournalDate.formatDateToJSONString(date));
+    public void testFormatDateToDataString() {
+        assertEquals("2017-09-05 18:32:15", JournalDate.formatDateToDataString(date));
     }
 
     @Test
-    public void testJSONStringToDate() {
+    public void testDataStringToDate() {
         String str = "2019-03-04 13:21:03";
         Date ac;
         try {
-            ac = JournalDate.JSONStringToDate(str);
+            ac = JournalDate.DataStringToDate(str);
             cal.setTime(ac);
             assertEquals(2019, cal.get(Calendar.YEAR));
             assertEquals(Calendar.MARCH, cal.get(Calendar.MONTH));
@@ -60,7 +61,7 @@ public class JournalDateUnitTest {
     public void testCurrentDate() {
         Date ex = Calendar.getInstance().getTime();
         Date ac = JournalDate.currentDate();
-        assertEquals(JournalDate.formatDateToJSONString(ex), JournalDate.formatDateToJSONString(ac));
+        assertEquals(JournalDate.formatDateToDataString(ex), JournalDate.formatDateToDataString(ac));
     }
 
     @Test

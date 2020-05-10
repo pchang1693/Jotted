@@ -96,7 +96,7 @@ public class JournalFragment extends Fragment {
             ((JournalViewHolder) viewHolder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(), JournalDate.formatDateToJSONString(tempNote.getDate()), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), JournalDate.formatDateToDataString(tempNote.getDate()), Toast.LENGTH_SHORT).show();
                     //Toast.makeText(getContext(), "Card clicked", Toast.LENGTH_SHORT).show();
                     //Toast.makeText(getContext(), "Note deleted", Toast.LENGTH_SHORT).show();
                     //deleteNote(tempNote);
