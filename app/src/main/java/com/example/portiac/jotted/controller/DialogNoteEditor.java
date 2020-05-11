@@ -18,15 +18,29 @@ import com.example.portiac.jotted.model.Note;
 import com.example.portiac.jotted.model.NoteType;
 import com.example.portiac.jotted.util.JournalDate;
 
-public class DialogNewNote extends DialogFragment {
+import java.util.Date;
+
+public class DialogNoteEditor extends DialogFragment {
     private Toolbar toolbar;
     private RadioGroup radioGroup;
+    private Note preexistingNote;
     private NoteType noteType;
+
+    private boolean inEditingMode;
+    private int preexistingNotePosition;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NORMAL, R.style.AppTheme_FullScreenDialog);
+
+        Bundle args = getArguments();
+        if (inEditingMode = (args != null)) {
+            makeTempPreexistingNote(args);
+            preexistingNotePosition = args.getInt("note_index");
+        } else {
+            preexistingNote = null;
+        }
     }
 
     @Nullable
@@ -35,47 +49,24 @@ public class DialogNewNote extends DialogFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         final View view = inflater.inflate(R.layout.dialog_new_note, container, false);
 
-        final Note newNote = new Note("", JournalDate.currentDate(), "", noteType);
-
         final EditText editTitle = view.findViewById(R.id.editTitle);
         //final EditText editDate = view.findViewById(R.id.editDate);
         final EditText editContent = view.findViewById(R.id.editContent);
 
+        if (preexistingNote != null) {
+            editTitle.setText(preexistingNote.getTitle());
+            editContent.setText(preexistingNote.getContent());
+        }
+
         radioGroup = view.findViewById(R.id.radioGroup);
+        setNoteTypeInEditor();
 
-
-        if (noteType == null) {
-            noteType = NoteType.ENTRY;
+        final Note newNote;
+        if (preexistingNote == null) {
+            newNote = new Note("", JournalDate.currentDate(), "", noteType);
+        } else {
+            newNote = preexistingNote;
         }
-
-        switch (noteType) {
-            case ENTRY:
-                radioGroup.check(R.id.radioButtonEntry);
-                break;
-            case DREAM:
-                radioGroup.check(R.id.radioButtonDream);
-                break;
-            case SPROUT:
-                radioGroup.check(R.id.radioButtonSprout);
-                break;
-        }
-
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (group.getCheckedRadioButtonId()) {
-                    case R.id.radioButtonEntry:
-                        noteType = NoteType.ENTRY;
-                        break;
-                    case R.id.radioButtonDream:
-                        noteType = NoteType.DREAM;
-                        break;
-                    case R.id.radioButtonSprout:
-                        noteType = NoteType.SPROUT;
-                        break;
-                }
-            }
-        });
 
         toolbar = (Toolbar) view.findViewById(R.id.toolbarNewNoteDialog);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -114,10 +105,13 @@ public class DialogNewNote extends DialogFragment {
 
                         if (allInputsValid) {
                             newNote.setTitle(newTitle);
-                            newNote.setDate(JournalDate.currentDate());
+                            //newNote.setDate(JournalDate.currentDate());
                             newNote.setContent(newContent);
                             newNote.setType(noteType);
                             callFragment.addNoteToJournal(newNote);
+                            if (inEditingMode) {
+                                callFragment.deleteNoteAtPosition(preexistingNotePosition);
+                            }
                             dismiss();
                         }
                         return true;
@@ -145,6 +139,63 @@ public class DialogNewNote extends DialogFragment {
 
     public void setEntryType(NoteType type) {
         noteType = type;
+    }
+
+    private void setNoteTypeInEditor() {
+        if (noteType == null) {
+            noteType = NoteType.ENTRY;
+        }
+
+        switch (noteType) {
+            case ENTRY:
+                radioGroup.check(R.id.radioButtonEntry);
+                break;
+            case DREAM:
+                radioGroup.check(R.id.radioButtonDream);
+                break;
+            case SPROUT:
+                radioGroup.check(R.id.radioButtonSprout);
+                break;
+        }
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (group.getCheckedRadioButtonId()) {
+                    case R.id.radioButtonEntry:
+                        noteType = NoteType.ENTRY;
+                        break;
+                    case R.id.radioButtonDream:
+                        noteType = NoteType.DREAM;
+                        break;
+                    case R.id.radioButtonSprout:
+                        noteType = NoteType.SPROUT;
+                        break;
+                }
+            }
+        });
+    }
+
+    private void makeTempPreexistingNote(Bundle args) {
+        String tempTitle = args.getString("note_title");
+        Date tempDate =  JournalDate.dataStringToDate(args.getString("note_date"));
+        String tempContent = args.getString("note_content");
+        NoteType tempType;
+        switch(args.getString("note_type")) {
+            case NoteType.entryString:
+                tempType = NoteType.ENTRY;
+                break;
+            case NoteType.dreamString:
+                tempType = NoteType.DREAM;
+                break;
+            case NoteType.sproutString:
+                tempType = NoteType.SPROUT;
+                break;
+            default:
+                tempType = NoteType.ENTRY;
+        }
+        preexistingNote = new Note(tempTitle, tempDate, tempContent, tempType);
+        setEntryType(tempType);
     }
 
 }

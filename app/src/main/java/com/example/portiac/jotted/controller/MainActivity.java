@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment calendarFragment;
     private Fragment homeFragment;
     private Fragment journalFragment;
+    private List<Note> notes;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
-
-    private List<Note> notes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +83,14 @@ public class MainActivity extends AppCompatActivity {
 
     public List<Note> getNotes() {
         return notes;
+    }
+
+    public int getIndexOfNote(Note note) {
+        if (notes.contains(note)) {
+            return notes.indexOf(note);
+        } else {
+            return -1;
+        }
     }
 
 }

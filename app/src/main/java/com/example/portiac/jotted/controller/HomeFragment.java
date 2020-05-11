@@ -110,7 +110,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void makeNewNote(NoteType type, String tag) {
-        DialogNewNote dialog = new DialogNewNote();
+        DialogNoteEditor dialog = new DialogNoteEditor();
         dialog.setEntryType(type);
         dialog.show(getFragmentManager(), tag);
         ((MainActivity) getActivity()).switchToJournalFragment();
