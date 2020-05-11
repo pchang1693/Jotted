@@ -23,5 +23,4 @@ Currently written using Java, will potentially work in Kotlin as needed.
 Features or ideas that are yet to be added to the app:
 
 * Viewing previous entries in the calendar
-* Editing of previous journal entries
 * Cut off note content in preview with "..." when too long
