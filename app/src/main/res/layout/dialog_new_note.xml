@@ -75,7 +75,8 @@
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarNewNoteDialog" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarNewNoteDialog"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/editContent"
@@ -96,6 +97,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        android:importantForAutofill="no" />
 
 </android.support.constraint.ConstraintLayout>
