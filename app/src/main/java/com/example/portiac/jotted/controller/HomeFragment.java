@@ -76,6 +76,17 @@ public class HomeFragment extends Fragment {
         });
 
         mCard = view.findViewById(R.id.card_home);
+        setRecentNoteCardViews();
+
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    private void setRecentNoteCardViews() {
         ((TextView) mCard.findViewById(R.id.noteTitle)).setText(recentNote.getTitle());
         ((TextView) mCard.findViewById(R.id.noteDate)).setText(JournalDate.formatDateToString(recentNote.getDate()));
         ((TextView) mCard.findViewById(R.id.noteContentPreview)).setText(recentNote.getContent());
@@ -100,13 +111,6 @@ public class HomeFragment extends Fragment {
                     break;
             }
         }
-
-        return view;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
     }
 
     private void makeNewNote(NoteType type, String tag) {
