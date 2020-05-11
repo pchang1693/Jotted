@@ -77,6 +77,23 @@ public class HomeFragment extends Fragment {
 
         mCard = view.findViewById(R.id.card_home);
         setRecentNoteCardViews();
+        mCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {          // Change later if possible
+                Bundle args = new Bundle();
+                args.putString("note_title", recentNote.getTitle());
+                args.putString("note_date", JournalDate.formatDateToDataString(recentNote.getDate()));
+                args.putString("note_content", recentNote.getContent());
+                args.putString("note_type", recentNote.getType().getNoteTypeString());
+                args.putInt("note_index", ((MainActivity) getActivity()).getIndexOfNote(recentNote));
+
+                DialogNoteEditor dialog = new DialogNoteEditor();
+                dialog.setArguments(args);
+                dialog.show(getFragmentManager(), "edit note");
+
+                ((MainActivity) getActivity()).switchToJournalFragment();
+            }
+        });
 
         return view;
     }

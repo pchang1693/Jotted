@@ -70,6 +70,19 @@ public class JournalFragment extends Fragment {
         mJournalAdapter.deleteNoteAtPosition(pos);
     }
 
+    public void editNoteInJournal(Note note) {
+        Bundle args = new Bundle();
+        args.putString("note_title", note.getTitle());
+        args.putString("note_date", JournalDate.formatDateToDataString(note.getDate()));
+        args.putString("note_content", note.getContent());
+        args.putString("note_type", note.getType().getNoteTypeString());
+        args.putInt("note_index", ((MainActivity) getActivity()).getIndexOfNote(note));
+
+        DialogNoteEditor dialog = new DialogNoteEditor();
+        dialog.setArguments(args);
+        dialog.show(getFragmentManager(), "edit note");
+    }
+
     public class JournalAdapter extends RecyclerView.Adapter {
         private JSONSerializer mSerializer;
         private List<Note> noteList;
@@ -94,7 +107,7 @@ public class JournalFragment extends Fragment {
             ((JournalViewHolder) viewHolder).itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    editNote(tempNote);
+                    editNoteInJournal(tempNote);
                 }
             });
             ((JournalViewHolder) viewHolder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -135,19 +148,6 @@ public class JournalFragment extends Fragment {
         void deleteNoteAtPosition(int pos) {
             noteList.remove(noteList.get(pos));
             notifyDataSetChanged();
-        }
-
-        void editNote(Note note) {
-            Bundle args = new Bundle();
-            args.putString("note_title", note.getTitle());
-            args.putString("note_date", JournalDate.formatDateToDataString(note.getDate()));
-            args.putString("note_content", note.getContent());
-            args.putString("note_type", note.getType().getNoteTypeString());
-            args.putInt("note_index", ((MainActivity) getActivity()).getIndexOfNote(note));
-
-            DialogNoteEditor dialog = new DialogNoteEditor();
-            dialog.setArguments(args);
-            dialog.show(getFragmentManager(), "edit note");
         }
 
         void saveNotes() {
