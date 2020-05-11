@@ -77,12 +77,6 @@ public class JournalFragment extends Fragment {
 
         JournalAdapter() {
             mSerializer = new JSONSerializer("Notes.json", getActivity().getApplicationContext());
-//            try {
-//                noteList = mSerializer.loadNotes();
-//            } catch (Exception e) {
-//                noteList = new ArrayList<Note>();
-//                Log.e("error", "Error loading notes: ", e);
-//            }
             noteList = ((MainActivity) getActivity()).getNotes();
         }
 
@@ -101,10 +95,6 @@ public class JournalFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     editNote(tempNote);
-                    //Toast.makeText(getContext(), JournalDate.formatDateToDataString(tempNote.getDate()), Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(getContext(), "Card clicked", Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(getContext(), "Note deleted", Toast.LENGTH_SHORT).show();
-                    //deleteNote(tempNote);
                 }
             });
             ((JournalViewHolder) viewHolder).itemView.setOnLongClickListener(new View.OnLongClickListener() {
@@ -135,7 +125,6 @@ public class JournalFragment extends Fragment {
         void addNote(Note note) {
             noteList.add(note);
             notifyDataSetChanged();
-            //Toast.makeText(getActivity(), (note.getType().getNoteTypeString() + " created!"), Toast.LENGTH_SHORT).show();
         }
 
         void deleteNote(Note note) {
