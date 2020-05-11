@@ -3,6 +3,8 @@
     <string name="entry">Entry</string>
     <string name="dream">Dream</string>
     <string name="sprout">Sprout</string>
+    <string name="placeholder_text">To be implemented</string>
+
     <string name="title_nav_calendar">Calendar</string>
     <string name="title_nav_home">Home</string>
     <string name="title_nav_journal">Journal</string>
@@ -14,7 +16,7 @@
     <string name="home_button_sprout">Plant a sprout</string>
     <string name="note_editor_title">Note editor</string>
     <string name="note_editor_title_hint">Title</string>
-    <string name="note_editor_content_hint">Today was a fine day...</string>
+    <string name="note_editor_content_hint">Today was a fine day.</string>
 
     <string name="placeholder_note_preview">Today, I took a walk around the neighbourhood.</string>
     <string name="card_img_description">Note type</string>
