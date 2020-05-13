@@ -83,24 +83,21 @@ public class DialogNoteEditor extends DialogFragment {
                 JournalFragment callFragment = (JournalFragment) callingActivity.getSupportFragmentManager().findFragmentByTag("curr");
                 switch (menuItem.getItemId()) {
                     case R.id.action_save_new_note:
-                        String newTitle, newDate, newContent;
+                        String newTitle, newContent;
                         boolean allInputsValid = true;
 
                         if ((newTitle = editTitle.getText().toString().trim()).isEmpty()) {
+                            editTitle.requestFocus();
                             editTitle.setError("Title cannot be empty");
                             allInputsValid = false;
                         }
 
-                    /*
-                        if ((newDate = editDate.getText().toString().trim()).isEmpty()) {
-                            editDate.setError("Date cannot be empty");
-                            allInputsValid = false;
-                        }
-                    */
-
                         if ((newContent = editContent.getText().toString().trim()).isEmpty()) {
+                            newContent = "";
+                            /*
                             editContent.setError("Note cannot be empty");
                             allInputsValid = false;
+                            */
                         }
 
                         if (allInputsValid) {
