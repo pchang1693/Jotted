@@ -17,25 +17,35 @@ import com.example.portiac.jotted.model.Note;
 import com.example.portiac.jotted.model.NoteType;
 import com.example.portiac.jotted.util.JournalDate;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import static com.example.portiac.jotted.model.NoteType.DREAM;
 import static com.example.portiac.jotted.model.NoteType.ENTRY;
 import static com.example.portiac.jotted.model.NoteType.SPROUT;
+
+// orientation changes reference:
+// https://medium.com/hootsuite-engineering/handling-orientation-changes-on-android-41a6b62cb43f
 
 public class HomeFragment extends Fragment {
     private String strWelcome;
     private TextView mTextGreeting;
     private Button mButtonEntry, mButtonDream, mButtonSprout;
     private View mCard;
-    private List<Note> notes;
+    private ArrayList<Note> notes;          // ArrayList implements Serializable, List does not
     private Note recentNote;
 
+    private static final String NOTES_STRING = "notes";
+
     @Override
+    @SuppressWarnings("unchecked")
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         strWelcome = JournalDate.welcomeString(JournalDate.currentDate());
-        notes = ((MainActivity) getActivity()).getNotes();
+        if (savedInstanceState != null) {
+            notes = (ArrayList<Note>) savedInstanceState.getSerializable(NOTES_STRING);
+        } else {
+            notes = ((MainActivity) getActivity()).getNotes();
+        }
         if (notes.size() != 0) {
             recentNote = notes.get(notes.size() - 1);
         } else {
@@ -101,6 +111,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(NOTES_STRING, notes);
     }
 
     private void setRecentNoteCardViews() {

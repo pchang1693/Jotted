@@ -14,14 +14,16 @@ import com.example.portiac.jotted.model.Note;
 import com.example.portiac.jotted.persistence.JSONSerializer;
 
 import java.util.ArrayList;
-import java.util.List;
+
+// orientation changes reference:
+// https://medium.com/hootsuite-engineering/handling-orientation-changes-on-android-41a6b62cb43f
 
 public class MainActivity extends AppCompatActivity {
 
     private Fragment calendarFragment;
     private Fragment homeFragment;
     private Fragment journalFragment;
-    private List<Note> notes;
+    private ArrayList<Note> notes;          // ArrayList implements Serializable, List does not
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -61,7 +63,10 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setSelectedItemId(R.id.navigation_home);
+        // When MainActivity is created for the first time
+        if (savedInstanceState == null) {
+            navigation.setSelectedItemId(R.id.navigation_home);
+        }
 
         JSONSerializer serializer = new JSONSerializer("Notes.json", getApplicationContext());
         try {
@@ -81,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.setSelectedItemId(R.id.navigation_journal);
     }
 
-    public List<Note> getNotes() {
+    public ArrayList<Note> getNotes() {
         return notes;
     }
 

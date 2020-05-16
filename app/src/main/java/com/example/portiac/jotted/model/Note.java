@@ -1,8 +1,9 @@
 package com.example.portiac.jotted.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Note {
+public class Note implements Serializable {
 
     private String mTitle;
     private Date mDate;
