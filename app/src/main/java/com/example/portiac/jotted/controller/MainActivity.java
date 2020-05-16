@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment selectedFragment = null;
+            Fragment selectedFragment;
 
             switch (item.getItemId()) {
                 case R.id.navigation_calendar:
@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_journal:
                     selectedFragment = journalFragment; // new JournalFragment();
                     break;
+                default:
+                    selectedFragment = homeFragment;
             }
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         homeFragment = new HomeFragment();
         journalFragment = new JournalFragment();
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         // When MainActivity is created for the first time
         if (savedInstanceState == null) {
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             notes = serializer.loadNotes();
         } catch (Exception e) {
-            notes = new ArrayList<Note>();
+            notes = new ArrayList<>();
             Log.e("error", "Error loading notes: ", e);
         }
     }
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         ft.setCustomAnimations(R.anim.delayed_fade_in, R.anim.fade_out);
         ft.replace(R.id.mainFragmentHolder, journalFragment, "curr").commit();
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setSelectedItemId(R.id.navigation_journal);
     }
 

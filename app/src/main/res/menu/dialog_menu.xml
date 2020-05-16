@@ -5,6 +5,6 @@
 
     <item
         android:id="@+id/action_save_new_note"
-        android:title="Save"
+        android:title="@string/note_editor_action_save"
         app:showAsAction="ifRoom" />
 </menu>

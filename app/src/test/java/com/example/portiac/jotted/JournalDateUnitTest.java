@@ -64,7 +64,7 @@ public class JournalDateUnitTest {
         testWelcomeStringEvening();
     }
 
-    public void testWelcomeStringMorning() {
+    private void testWelcomeStringMorning() {
         for (int i = 4; i <= 11; i++) {
             cal.set(Calendar.HOUR_OF_DAY, i);
             Date d = cal.getTime();
@@ -72,7 +72,7 @@ public class JournalDateUnitTest {
         }
     }
 
-    public void testWelcomeStringAfternoon() {
+    private void testWelcomeStringAfternoon() {
         for (int i = 12; i <= 17; i++) {
             cal.set(Calendar.HOUR_OF_DAY, i);
             Date d = cal.getTime();
@@ -80,7 +80,7 @@ public class JournalDateUnitTest {
         }
     }
 
-    public void testWelcomeStringEvening() {
+    private void testWelcomeStringEvening() {
         for (int i = 18; i < 24; i++) {
             cal.set(Calendar.HOUR_OF_DAY, i);
             Date d = cal.getTime();

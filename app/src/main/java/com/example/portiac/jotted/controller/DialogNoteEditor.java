@@ -19,9 +19,9 @@ import com.example.portiac.jotted.model.NoteType;
 import com.example.portiac.jotted.util.JournalDate;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class DialogNoteEditor extends DialogFragment {
-    private Toolbar toolbar;
     private RadioGroup radioGroup;
     private Note preexistingNote;
     private NoteType noteType;
@@ -68,7 +68,7 @@ public class DialogNoteEditor extends DialogFragment {
             newNote = preexistingNote;
         }
 
-        toolbar = (Toolbar) view.findViewById(R.id.toolbarNewNoteDialog);
+        Toolbar toolbar = view.findViewById(R.id.toolbarNewNoteDialog);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,42 +80,41 @@ public class DialogNoteEditor extends DialogFragment {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 MainActivity callingActivity = (MainActivity) getActivity();
+                Objects.requireNonNull(callingActivity);
                 JournalFragment callFragment = (JournalFragment) callingActivity.getSupportFragmentManager().findFragmentByTag("curr");
-                switch (menuItem.getItemId()) {
-                    case R.id.action_save_new_note:
-                        String newTitle, newContent;
-                        boolean allInputsValid = true;
+                Objects.requireNonNull(callFragment);
+                if (menuItem.getItemId() == R.id.action_save_new_note) {
+                    String newTitle, newContent;
+                    boolean allInputsValid = true;
 
-                        if ((newTitle = editTitle.getText().toString().trim()).isEmpty()) {
-                            editTitle.requestFocus();
-                            editTitle.setError("Title cannot be empty");
-                            allInputsValid = false;
-                        }
+                    if ((newTitle = editTitle.getText().toString().trim()).isEmpty()) {
+                        editTitle.requestFocus();
+                        editTitle.setError("Title cannot be empty");
+                        allInputsValid = false;
+                    }
 
-                        if ((newContent = editContent.getText().toString().trim()).isEmpty()) {
-                            newContent = "";
+                    if ((newContent = editContent.getText().toString().trim()).isEmpty()) {
+                        newContent = "";
                             /*
                             editContent.setError("Note cannot be empty");
                             allInputsValid = false;
                             */
-                        }
+                    }
 
-                        if (allInputsValid) {
-                            newNote.setTitle(newTitle);
-                            //newNote.setDate(JournalDate.currentDate());
-                            newNote.setContent(newContent);
-                            newNote.setType(noteType);
-                            callFragment.addNoteToJournal(newNote);
-                            if (inEditingMode) {
-                                callFragment.deleteNoteAtPosition(preexistingNotePosition);
-                            }
-                            dismiss();
+                    if (allInputsValid) {
+                        newNote.setTitle(newTitle);
+                        //newNote.setDate(JournalDate.currentDate());
+                        newNote.setContent(newContent);
+                        newNote.setType(noteType);
+                        callFragment.addNoteToJournal(newNote);
+                        if (inEditingMode) {
+                            callFragment.deleteNoteAtPosition(preexistingNotePosition);
                         }
-                        return true;
-
-                    default:
-                        return true;
+                        dismiss();
+                    }
+                    return true;
                 }
+                return true;
             }
         });
 
@@ -129,6 +128,7 @@ public class DialogNoteEditor extends DialogFragment {
         if (dialog != null) {
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
+            Objects.requireNonNull(dialog.getWindow());
             dialog.getWindow().setLayout(width, height);
             dialog.getWindow().setWindowAnimations(R.style.AppTheme_DialogFloat);
         }
@@ -177,8 +177,10 @@ public class DialogNoteEditor extends DialogFragment {
         String tempTitle = args.getString("note_title");
         Date tempDate =  JournalDate.dataStringToDate(args.getString("note_date"));
         String tempContent = args.getString("note_content");
+
         NoteType tempType;
-        switch(args.getString("note_type")) {
+        String noteTypeStringFromArg = Objects.requireNonNull(args.getString("note_type"));
+        switch (noteTypeStringFromArg) {
             case NoteType.entryString:
                 tempType = NoteType.ENTRY;
                 break;

@@ -22,6 +22,7 @@ import com.example.portiac.jotted.persistence.JSONSerializer;
 import com.example.portiac.jotted.util.JournalDate;
 
 import java.util.List;
+import java.util.Objects;
 
 public class JournalFragment extends Fragment {
 
@@ -37,18 +38,19 @@ public class JournalFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_journal, container, false);
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewJournal);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerViewJournal);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
         mJournalAdapter = new JournalAdapter();
         recyclerView.setAdapter(mJournalAdapter);
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogNoteEditor dialog = new DialogNoteEditor();
+                Objects.requireNonNull(getFragmentManager());
                 dialog.show(getFragmentManager(), "new note");
             }
         });
@@ -70,26 +72,26 @@ public class JournalFragment extends Fragment {
         mJournalAdapter.deleteNoteAtPosition(pos);
     }
 
-    public void editNoteInJournal(Note note) {
+    private void editNoteInJournal(Note note) {
         Bundle args = new Bundle();
         args.putString("note_title", note.getTitle());
         args.putString("note_date", JournalDate.formatDateToDataString(note.getDate()));
         args.putString("note_content", note.getContent());
         args.putString("note_type", note.getType().getNoteTypeString());
-        args.putInt("note_index", ((MainActivity) getActivity()).getIndexOfNote(note));
+        args.putInt("note_index", ((MainActivity) Objects.requireNonNull(getActivity())).getIndexOfNote(note));
 
         DialogNoteEditor dialog = new DialogNoteEditor();
         dialog.setArguments(args);
-        dialog.show(getFragmentManager(), "edit note");
+        dialog.show(Objects.requireNonNull(getFragmentManager()), "edit note");
     }
 
-    public class JournalAdapter extends RecyclerView.Adapter {
+    class JournalAdapter extends RecyclerView.Adapter {
         private JSONSerializer mSerializer;
         private List<Note> noteList;
         JournalAdapter(List<Note> noteList) {this.noteList = noteList;}
 
         JournalAdapter() {
-            mSerializer = new JSONSerializer("Notes.json", getActivity().getApplicationContext());
+            mSerializer = new JSONSerializer("Notes.json", Objects.requireNonNull(getActivity()).getApplicationContext());
             noteList = ((MainActivity) getActivity()).getNotes();
         }
 
@@ -160,16 +162,16 @@ public class JournalFragment extends Fragment {
 
     }
 
-    public class JournalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class JournalViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView noteTitleTextView, noteDateTextView, noteContentTextView;
         private ImageView noteTypeImageView;
 
         JournalViewHolder(final View itemView) {
             super(itemView);
-            noteTitleTextView = (TextView) itemView.findViewById(R.id.noteTitle);
-            noteDateTextView = (TextView) itemView.findViewById(R.id.noteDate);
-            noteContentTextView = (TextView) itemView.findViewById(R.id.noteContentPreview);
-            noteTypeImageView = (ImageView) itemView.findViewById(R.id.noteTypeImg);
+            noteTitleTextView = itemView.findViewById(R.id.noteTitle);
+            noteDateTextView = itemView.findViewById(R.id.noteDate);
+            noteContentTextView = itemView.findViewById(R.id.noteContentPreview);
+            noteTypeImageView = itemView.findViewById(R.id.noteTypeImg);
             itemView.setOnClickListener(this);
         }
 

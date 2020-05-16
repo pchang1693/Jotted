@@ -11,7 +11,6 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/solway_regular"
-        android:paddingEnd="24dp"
         android:text="@string/text_default_greeting"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,7 +23,6 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="4dp"
         android:fontFamily="@font/solway_regular"
-        android:paddingEnd="24dp"
         android:text="@string/text_default_welcome"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +35,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/solway_regular"
-        android:text="Create something new:"
+        android:text="@string/text_create_something_new"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textWelcome" />
@@ -49,7 +47,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="28dp"
         android:fontFamily="@font/solway_regular"
-        android:text="Or pick up where you left off:"
+        android:text="@string/text_pick_up_left_off"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textEntry" />
@@ -85,24 +83,6 @@
         app:layout_constraintTop_toTopOf="@+id/buttonDream" />
 
     <Button
-        android:id="@+id/buttonResume"
-        style="@style/ButtonHomeMenu"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/colorHomeResumeButton"
-        android:text="@string/home_button_resume"
-        android:textAllCaps="false"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/buttonDream"
-        app:layout_constraintEnd_toStartOf="@+id/buttonEntry"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textWelcome" />
-
-    <Button
         android:id="@+id/buttonEntry"
         style="@style/ButtonHomeMenu"
         android:layout_width="@dimen/home_button_size"
@@ -112,7 +92,6 @@
         android:layout_marginEnd="8dp"
         android:background="@drawable/entry_circle"
         android:backgroundTint="@color/colorEntry"
-        android:foreground="?android:selectableItemBackgroundBorderless"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:textAllCaps="false"
@@ -150,7 +129,6 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonEntry" />
 
     <TextView
-        android:id="@+id/textDream"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
@@ -162,7 +140,6 @@
         app:layout_constraintTop_toBottomOf="@+id/buttonDream" />
 
     <TextView
-        android:id="@+id/textSprout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"

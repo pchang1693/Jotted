@@ -18,6 +18,7 @@ import com.example.portiac.jotted.model.NoteType;
 import com.example.portiac.jotted.util.JournalDate;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.example.portiac.jotted.model.NoteType.DREAM;
 import static com.example.portiac.jotted.model.NoteType.ENTRY;
@@ -28,8 +29,6 @@ import static com.example.portiac.jotted.model.NoteType.SPROUT;
 
 public class HomeFragment extends Fragment {
     private String strWelcome;
-    private TextView mTextGreeting;
-    private Button mButtonEntry, mButtonDream, mButtonSprout;
     private View mCard;
     private ArrayList<Note> notes;          // ArrayList implements Serializable, List does not
     private Note recentNote;
@@ -44,9 +43,9 @@ public class HomeFragment extends Fragment {
         if (savedInstanceState != null) {
             notes = (ArrayList<Note>) savedInstanceState.getSerializable(NOTES_STRING);
         } else {
-            notes = ((MainActivity) getActivity()).getNotes();
+            notes = ((MainActivity) Objects.requireNonNull(getActivity())).getNotes();
         }
-        if (notes.size() != 0) {
+        if (notes != null && notes.size() != 0) {
             recentNote = notes.get(notes.size() - 1);
         } else {
             recentNote = new Note("Create a new note!", JournalDate.currentDate(),"Click one of the above buttons.", ENTRY);
@@ -58,48 +57,26 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        mTextGreeting = (TextView) view.findViewById(R.id.textGreeting);
+        TextView mTextGreeting = view.findViewById(R.id.textGreeting);
         mTextGreeting.setText(strWelcome);
 
-        mButtonEntry = (Button) view.findViewById(R.id.buttonEntry);
-        mButtonEntry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                makeNewNote(ENTRY, "new entry");
-            }
-        });
-
-        mButtonDream = (Button) view.findViewById(R.id.buttonDream);
-        mButtonDream.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                makeNewNote(DREAM, "new dream");
-            }
-        });
-
-        mButtonSprout = (Button) view.findViewById(R.id.buttonSprout);
-        mButtonSprout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                makeNewNote(SPROUT, "new sprout");
-            }
-        });
+        setButtonViewsAndListeners(view);
 
         mCard = view.findViewById(R.id.card_home);
         setRecentNoteCardViews();
         mCard.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {          // Change later if possible
+            public void onClick(View v) {          // Change later if possible (coupling with JournalFragment)
                 Bundle args = new Bundle();
                 args.putString("note_title", recentNote.getTitle());
                 args.putString("note_date", JournalDate.formatDateToDataString(recentNote.getDate()));
                 args.putString("note_content", recentNote.getContent());
                 args.putString("note_type", recentNote.getType().getNoteTypeString());
-                args.putInt("note_index", ((MainActivity) getActivity()).getIndexOfNote(recentNote));
+                args.putInt("note_index", ((MainActivity) Objects.requireNonNull(getActivity())).getIndexOfNote(recentNote));
 
                 DialogNoteEditor dialog = new DialogNoteEditor();
                 dialog.setArguments(args);
-                dialog.show(getFragmentManager(), "edit note");
+                dialog.show(Objects.requireNonNull(getFragmentManager()), "edit note");
 
                 ((MainActivity) getActivity()).switchToJournalFragment();
             }
@@ -119,12 +96,38 @@ public class HomeFragment extends Fragment {
         outState.putSerializable(NOTES_STRING, notes);
     }
 
+    private void setButtonViewsAndListeners(View view) {
+        Button mButtonEntry = view.findViewById(R.id.buttonEntry);
+        mButtonEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeNewNote(ENTRY, "new entry");
+            }
+        });
+
+        Button mButtonDream = view.findViewById(R.id.buttonDream);
+        mButtonDream.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeNewNote(DREAM, "new dream");
+            }
+        });
+
+        Button mButtonSprout = view.findViewById(R.id.buttonSprout);
+        mButtonSprout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeNewNote(SPROUT, "new sprout");
+            }
+        });
+    }
+
     private void setRecentNoteCardViews() {
         ((TextView) mCard.findViewById(R.id.noteTitle)).setText(recentNote.getTitle());
         ((TextView) mCard.findViewById(R.id.noteDate)).setText(JournalDate.formatDateToString(recentNote.getDate()));
         ((TextView) mCard.findViewById(R.id.noteContentPreview)).setText(recentNote.getContent());
 
-        ImageView noteTypeImageView = (ImageView) mCard.findViewById(R.id.noteTypeImg);
+        ImageView noteTypeImageView = mCard.findViewById(R.id.noteTypeImg);
         if (recentNote.getType() != null) {
             switch (recentNote.getType()) {
                 case ENTRY:
@@ -149,7 +152,7 @@ public class HomeFragment extends Fragment {
     private void makeNewNote(NoteType type, String tag) {
         DialogNoteEditor dialog = new DialogNoteEditor();
         dialog.setEntryType(type);
-        dialog.show(getFragmentManager(), tag);
-        ((MainActivity) getActivity()).switchToJournalFragment();
+        dialog.show(Objects.requireNonNull(getFragmentManager()), tag);
+        ((MainActivity) Objects.requireNonNull(getActivity())).switchToJournalFragment();
     }
 }

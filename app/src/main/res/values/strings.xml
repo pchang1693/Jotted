@@ -8,17 +8,21 @@
     <string name="title_nav_calendar">Calendar</string>
     <string name="title_nav_home">Home</string>
     <string name="title_nav_journal">Journal</string>
+
     <string name="text_default_greeting">Hey there!</string>
     <string name="text_default_welcome">Welcome back.</string>
-    <string name="home_button_resume">See where you left off</string>
-    <string name="home_button_entry">Write an entry</string>
-    <string name="home_button_dream">Record a dream</string>
-    <string name="home_button_sprout">Plant a sprout</string>
-    <string name="note_editor_title">Note editor</string>
+    <string name="text_create_something_new">Create something new:</string>
+    <string name="text_pick_up_left_off">Or pick up where you left off:</string>
+
+    <string name="note_editor_toolbar_title">Note editor</string>
+    <string name="note_editor_action_save">Save</string>
     <string name="note_editor_title_hint">Title</string>
     <string name="note_editor_content_hint">Today was a fine day.</string>
 
     <string name="calendar_placeholder_text">To be implemented - you can view notes from a certain day by selecting that date from the calendar.</string>
-    <string name="placeholder_note_preview">Today, I took a walk around the neighbourhood.</string>
+
     <string name="card_img_description">Note type</string>
+    <string name="card_placeholder_title">Placeholder Title</string>
+    <string name="card_placeholder_date">January 1, 2000</string>
+    <string name="card_placeholder_content">Today, I took a walk around the neighbourhood.</string>
 </resources>

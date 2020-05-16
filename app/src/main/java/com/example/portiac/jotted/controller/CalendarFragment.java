@@ -14,7 +14,6 @@ import com.example.portiac.jotted.R;
 
 public class CalendarFragment extends Fragment {
     private String myString;
-    private Button myButton;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,7 +26,7 @@ public class CalendarFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
 
-        myButton = (Button) view.findViewById(R.id.buttonCalendar);
+        Button myButton = view.findViewById(R.id.buttonCalendar);
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

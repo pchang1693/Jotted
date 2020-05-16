@@ -32,7 +32,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/zillaslab_regular"
         android:maxHeight="32sp"
-        android:text="Placeholder Title"
+        android:text="@string/card_placeholder_title"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -46,7 +46,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/zillaslab_regular"
-        android:text="November 18, 2019"
+        android:text="@string/card_placeholder_date"
         android:textSize="16sp" />
 
     <TextView
@@ -60,7 +60,7 @@
         android:fontFamily="@font/dosis_regular"
         android:gravity="top"
         android:maxHeight="24sp"
-        android:text="@string/placeholder_note_preview"
+        android:text="@string/card_placeholder_content"
         android:textSize="18sp" />
 
 </android.support.v7.widget.CardView>

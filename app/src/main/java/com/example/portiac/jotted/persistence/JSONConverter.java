@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
-public class JSONConverter {
+class JSONConverter {
 
     private static final String JSON_TITLE = "title";
     private static final String JSON_DATE = "date";

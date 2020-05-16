@@ -1,5 +1,6 @@
 package com.example.portiac.jotted.util;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import java.text.ParseException;
@@ -36,10 +37,12 @@ public class JournalDate {
         return new SimpleDateFormat(DATE_PATTERN, Locale.CANADA).format(date);
     }
 
+    @SuppressLint("SimpleDateFormat")
     public static String formatDateToDataString(Date date) {
         return new SimpleDateFormat(DATA_STRING_PATTERN).format(date);
     }
 
+    @SuppressLint("SimpleDateFormat")
     public static Date dataStringToDate(String ds) {
         SimpleDateFormat sdf = new SimpleDateFormat(DATA_STRING_PATTERN);
         try {
