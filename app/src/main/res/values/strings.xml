@@ -9,7 +9,7 @@
     <string name="title_nav_home">Home</string>
     <string name="title_nav_journal">Journal</string>
 
-    <string name="text_default_greeting">Hey there!</string>
+    <string name="text_default_greeting">Good morning!</string>
     <string name="text_default_welcome">Welcome back.</string>
     <string name="text_create_something_new">Create something new:</string>
     <string name="text_pick_up_left_off">Or pick up where you left off:</string>

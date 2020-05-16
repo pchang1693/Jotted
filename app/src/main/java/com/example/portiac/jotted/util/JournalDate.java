@@ -24,11 +24,11 @@ public class JournalDate {
         cal.setTime(date);
         int hour = cal.get(Calendar.HOUR_OF_DAY);
         if (hour >= 4 && hour < 12) {    // morning: 4:00 am - 11:59 am
-            ret = "Good morning!";
+            ret = "Good morning! ";
         } else if (hour >= 12 && hour < 18) {    // afternoon: 12 pm - 5:59 pm
-            ret = "Good afternoon!";
+            ret = "Good afternoon! ";
         } else {    // evening: 6 pm - 3:59 am
-            ret = "Good evening!";
+            ret = "Good evening! ";
         }
         return ret;
     }
